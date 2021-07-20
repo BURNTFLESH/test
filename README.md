@@ -85,8 +85,8 @@ a {
     <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
     <hr>
     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <a href="https://discord.gg/XUKTCrkA"><button>Fruit gang</button></a>
 
-    <a href="https://discord.gg/XUKTCrkA"><button>register</button></a>
 
   </div>
   
