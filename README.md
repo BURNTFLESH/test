@@ -3,7 +3,8 @@
   <input type="text" id="fname" name="fname"><br><br>
   <label for="lname">Last name:</label>
   <input type="text" id="lname" name="lname"><br><br>
-  <input type="submit" value="Submit">
+  <a href="https://discord.gg/XUKTCrkA"><button>Fruit gang</button></a>
+
 </form>
 
 <p>Click the "Submit" button and the form-data will be sent to a page on the 
