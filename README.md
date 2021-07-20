@@ -1,136 +1,169 @@
-<!DOCTYPE html>
-<html>
-<head><title>Simple Game</title></head>
+var cvs = document.getElementById("canvas");
 
-<style>
-#score{
-background-color: white;
-height:50px;
-width:140px;
-top:10px;
-left:540px;
-font-size:30px;
-}
-#board{
-position:absolute;
-width:5000px;
-height:300px;
-}
-#background{
-position:absolute;
-width:700px;
-height:500px;
-}
-#ball{
-position:absolute;
-width:70px;
-height:70px;
-top: 410px;
-left: 300px;
-}
-#goalie{
-position:absolute;
-width:100px;
-top:200px;
-left:300px;
-}
-#rules{
-position:absolute;
-top:0px;
-left:730px;
-}
-</style>
+var ctx = cvs.getContext("2d");
 
-<body>
-<div id="board">
-<img id="background" src="img/background.jpg" />
-<img id="ball" src="img/ball.jpg"/>
-<img id="goalie" src="img/goalie.jpg"/>
-<div id="score" style="position:absolute;" >Score</div>
-</div>
-<div id="rules" style="position:absolute;" >
+// load images
 
-<h1>Simple Shooter Game</h1>
+var bird = new Image();
 
-<p>On building this simple game I learnt more about how the programming languages HTML5, CSS and JavaScript worked. The rules are stated below<p>
+var bg = new Image();
 
-<ul>
-<li>jkdsgjs</li>
-<li>hfdja</li>
-<li>`jeatngdadv</li>
-</ul>
+var fg = new Image();
 
-<p>Have fun!!</p>
+var pipeNorth = new Image();
+
+var pipeSouth = new Image();
+
+bird.src = "images/bird.png";
+
+bg.src = "images/bg.png";
+
+fg.src = "images/fg.png";
+
+pipeNorth.src = "images/pipeNorth.png";
+
+pipeSouth.src = "images/pipeSouth.png";
 
 
-<button onclick="shootLeft()" style="top:400px; left:100px;" type="leftButton">Shoot left</button>
-<button onclick="shootRight()" style="top:400px; left:200px;" type="rightButton">Shoot right</button>
 
-<div>
-<p id="gameover"></p>
-</div>
-</div>
+// some variables
 
-<script>
-var ball = null;
-var x = 1;
+var gap = 85;
+
+var constant;
+
+var bX = 10;
+
+var bY = 150;
+
+var gravity = 1.5;
+
 var score = 0;
-document.getElementById('score').innerHTML = '0';
-var animate;
-ball = document.getElementById('ball');
 
-function shootLeft(){
-var ran = Math.random();
+// audio files
 
-while(parseInt(ball.style.top) != 300){
-ball.style.left = parseInt(ball.style.left) - 1 + 'px';
-ball.style.top = parseInt(ball.style.top) - 1 + 'px';
-animate = setTimeout(shootLeft,20);
-}
-if(ran<0.3){
-score = score + 1;
-document.getElementById('score').innerHTML = score;
-}
-else{
-document.getElementById('score').innerHTML = score;
-}
-x++;
-if(x==10){
-document.getElementById('gameover').innerHTML = "Game over! You got a score of " + score;
-}
-ball.style.left = '300px';
-ball.style.top = '410px';
-}
+var fly = new Audio();
 
-function shootRight(){
-van ran = Math.random();
+var scor = new Audio();
 
-while(parseInt(ball.style.top != 300){
-ball.style.left = parseInt(ball.style.left) + 1 + 'px';
-ball.style.top = parseInt(ball.style.top) - 1 + 'px';
-animate = setTimeout(shootRight,20);
-}
-if(ran>0.7){
-score = score + 1;
-document.getElementById('score').innerHTML = score;
-}
-else{
-document.getElementById('score').innerHTML = score;
-}
-x++;
-if(x==10){
-document.getElementById('gameover').innerHTML = "Game over! You got a score of " + score;
-}
-ball.style.left = '300px';
-ball.style.top = '410px';
-}
+fly.src = "sounds/fly.mp3";
+
+scor.src = "sounds/score.mp3";
+
+// on key down
+
+document.addEventListener("keydown",moveUp);
+
+function moveUp(){
+
+    bY -= 25;
+
+    fly.play();
 
 }
 
+// pipe coordinates
 
-</script>
+var pipe = [];
 
-</body>
+pipe[0] = {
 
+    x : cvs.width,
 
-</html>
+    y : 0
+
+};
+
+// draw images
+
+function draw(){
+
+  
+
+    ctx.drawImage(bg,0,0);
+
+  
+
+  
+
+    for(var i = 0; i < pipe.length; i++){
+
+      
+
+        constant = pipeNorth.height+gap;
+
+        ctx.drawImage(pipeNorth,pipe[i].x,pipe[i].y);
+
+        ctx.drawImage(pipeSouth,pipe[i].x,pipe[i].y+constant);
+
+            
+
+        pipe[i].x--;
+
+      
+
+        if( pipe[i].x == 125 ){
+
+            pipe.push({
+
+                x : cvs.width,
+
+                y : Math.floor(Math.random()*pipeNorth.height)-pipeNorth.height
+
+            });
+
+        }
+
+        // detect collision
+
+      
+
+        if( bX + bird.width >= pipe[i].x && bX <= pipe[i].x + pipeNorth.width && (bY <= pipe[i].y + pipeNorth.height || bY+bird.height >= pipe[i].y+constant) || bY + bird.height >=  cvs.height - fg.height){
+
+            location.reload(); // reload the page
+
+        }
+
+      
+
+        if(pipe[i].x == 5){
+
+            score++;
+
+            scor.play();
+
+        }
+
+      
+
+      
+
+    }
+
+    ctx.drawImage(fg,0,cvs.height - fg.height);
+
+  
+
+    ctx.drawImage(bird,bX,bY);
+
+  
+
+    bY += gravity;
+
+  
+
+    ctx.fillStyle = "#000";
+
+    ctx.font = "20px Verdana";
+
+    ctx.fillText("Score : "+score,10,cvs.height-20);
+
+  
+
+    requestAnimationFrame(draw);
+
+  
+
+}
+
+draw();
