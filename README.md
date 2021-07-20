@@ -75,7 +75,7 @@ a {
     <p>Please fill in this form to create an account.</p>
     <hr>
 
-    <label for="email"><b>Email</b></label>
+    <label for="email"><b>Username</b></label>
     <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
     <label for="psw"><b>Password</b></label>
@@ -85,9 +85,8 @@ a {
     <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
     <hr>
     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <a href="https://discord.gg/XUKTCrkA"><button>Fruit gang</button></a>
-
-
+    
+    <a href="https://ikenv2.github.io/Fruit-gang/"><button>Fruit gang</button></a>
   </div>
   
   <div class="container signin">
