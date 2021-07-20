@@ -1,14 +1,7 @@
-<form action="/action_page.php">
+
   <label for="fname">First name:</label>
   <input type="text" id="fname" name="fname"><br><br>
   <label for="lname">Last name:</label>
   <input type="text" id="lname" name="lname"><br><br>
   <a href="https://discord.gg/XUKTCrkA"><button>login gang</button></a>
 
-</form>
-
-<p>Click the "Submit" button and the form-data will be sent to a page on the 
-server called "action_page.php".</p>
-
-</body>
-</html>
