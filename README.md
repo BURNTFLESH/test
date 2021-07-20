@@ -86,7 +86,8 @@ a {
     <hr>
     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
-    <button type="submit" class="https://ikenv2.github.io/Fruit-gang/">Register</button>
+    <a href="https://discord.gg/XUKTCrkA"><button>register</button></a>
+
   </div>
   
   <div class="container signin">
